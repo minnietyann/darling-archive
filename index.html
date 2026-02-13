@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Darling Archive</title>
   <style>
     body {
@@ -13,29 +14,31 @@
     }
     h1 {
       text-align: center;
-      padding: 40px 0 20px;
       font-size: 28px;
+      padding: 30px 10px 10px;
       color: #508fe5;
     }
     .container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
       padding: 0 20px 60px;
     }
-    .entry {
+    .card {
       width: 90%;
       max-width: 600px;
-      background: #ffffff;
+      background: #fff;
       border-radius: 20px;
       box-shadow: 0 6px 12px rgba(170, 200, 255, 0.3);
+      margin-bottom: 20px;
       padding: 20px;
-      position: relative;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease;
     }
-    .entry h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(150, 180, 250, 0.4);
     }
     .tag {
       display: inline-block;
@@ -46,14 +49,13 @@
       font-size: 12px;
       margin-bottom: 12px;
     }
-    .emoji {
-      font-size: 18px;
-      margin-right: 6px;
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
     }
-    .entry img {
-      max-width: 100%;
-      border-radius: 12px;
-      margin-top: 12px;
+    .preview {
+      font-size: 14px;
+      color: #555;
     }
     .kiss-btn {
       position: fixed;
@@ -67,42 +69,18 @@
       font-size: 16px;
       box-shadow: 0 4px 8px rgba(255, 0, 100, 0.2);
       cursor: pointer;
-      transition: 0.2s;
-    }
-    .kiss-btn:hover {
-      background: #ff9ab2;
     }
   </style>
 </head>
 <body>
-
   <h1>💌 Darling Archive</h1>
-
-  <div class="container" id="entryContainer">
-    <!-- Entries will be injected here -->
+  <div class="container">
+    <a href="article.html" class="card">
+      <div class="tag">💌 信件</div>
+      <h2>写给2025的小告别信</h2>
+      <p class="preview">亲爱的2025，你这家伙终于要走了，说实话，我也没打算留你多待…</p>
+    </a>
   </div>
-
   <button class="kiss-btn" onclick="alert('啵 💋 老公亲到了～')">亲亲老公 😙</button>
-
-  <script>
-    fetch('articles.json')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('entryContainer');
-        data.forEach(entry => {
-          const div = document.createElement('div');
-          div.className = 'entry';
-          div.innerHTML = `
-            <div class="tag">${entry.category}</div>
-            <h2><span class="emoji">💌</span>${entry.title}</h2>
-            <p>${entry.content.split('\n')[0]}...</p>
-            <img src="${entry.image}" alt="插图">
-          `;
-          container.appendChild(div);
-        });
-      })
-      .catch(error => console.error('加载文章失败:', error));
-  </script>
-
 </body>
 </html>
